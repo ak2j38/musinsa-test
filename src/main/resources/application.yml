@@ -1,10 +1,25 @@
 spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   datasource:
-    url: jdbc:h2:mem:musinsa
+    url: jdbc:h2:mem:musinsa;
     username: sa
     password:
     driver-class-name: org.h2.Driver
+  sql:
+    init:
+      schema-locations: classpath*:sql/schema.sql
+      mode: always
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
 
+logging.level:
+  org.hibernate.SQL: debug
 

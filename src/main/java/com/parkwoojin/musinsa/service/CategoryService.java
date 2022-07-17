@@ -64,12 +64,9 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long id) {
-        Category findCategory = categoryRepository.findById(id).orElseGet(null);
-        if (findCategory == null) {
-            throw new NoSuchElementException("해당하는 카테고리가 없습니다.");
-        }
+        Category findCategory = categoryRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
-        if (findCategory.getSubCategories().isEmpty()) {
+        if (!findCategory.getSubCategories().isEmpty()) {
             throw new ExistSubCategoryException("하위에 카테고리가 존재합니다. 먼저 삭제해주세요.");
         }
 
